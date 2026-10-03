@@ -133,7 +133,8 @@ return {
   },
 
   {
-    "olimorris/codecompanion.nvim",
+    "m1st-gh/codecompanion-pwsh.nvim",
+    branch = "pwsh",
     event = "VeryLazy",
     cmd = {
       "CodeCompanion",
@@ -167,20 +168,11 @@ return {
           system_prompt = function(ctx)
             local extra = [[
 
-You are running inside Neovim on Windows, where the terminal shell is cmd.exe.
-Do not provide raw PowerShell commands or bash commands for direct execution.
+You are running inside Neovim on Windows. Use PowerShell commands that are
+compatible with Windows. Do not provide Bash, Linux, or macOS shell commands.
 
-Run every terminal command from cmd.exe by explicitly invoking PowerShell:
-
-powershell.exe -NoProfile -Command "<PowerShell command>"
-
-Use PowerShell syntax inside the quoted command. For example:
-- powershell.exe -NoProfile -Command "Get-ChildItem"
-- powershell.exe -NoProfile -Command "Get-ChildItem -Recurse | Select-String -Pattern 'text'"
-- powershell.exe -NoProfile -Command "Write-Output $env:PATH"
-
-Prefer PowerShell commands such as Get-ChildItem and Select-String rather than
-bash utilities. Ensure the complete command is valid when entered in cmd.exe.
+Prefer native PowerShell cmdlets such as Get-ChildItem, Select-String,
+Get-Content, and Set-Content instead of Unix utilities.
 ]]
             -- Append to the default prompt when the version exposes it
             return ((ctx and ctx.default_system_prompt) or "You are an AI coding assistant.") .. extra
